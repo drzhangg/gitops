@@ -1,30 +1,57 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-nginx
+  labels:
+    app: gin-test
+  name: gin-test
+  namespace: gin
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      app: my-nginx
+      app: gin-test
   template:
     metadata:
       labels:
-        app: my-nginx
+        app: gin-test
     spec:
+      volumes:
+        - name: config.conf-volume
+          configMap:
+            name: gin-test
       containers:
-        - name: my-nginx
-          image: nginx:1.8
+        - image: drzhangg/gin_demo1:v10
+          name: gin-demo
           ports:
-            - containerPort: 80
+            - containerPort: 8181
+              name: http
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: config.conf-volume
+              mountPath: /etc/config.conf
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: nginx-service
+  labels:
+    app: gin-test
+  name: gin-svc
+  namespace: gin
 spec:
-  type: NodePort
   ports:
-    - port: 80     # 该服务的可用端口，即对外提供的端口
-      targetPort: 80   # 服务将连接转发到的容器端口
+    - port: 8181
+      protocol: TCP
+      targetPort: http
   selector:
-    app: my-nginx
+    app: gin-test
+  type: NodePort
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gin-test
+  namespace: gin
+data:
+  SPECIAL_LEVEL: very
+  SPECIAL_TYPE: charm
+
