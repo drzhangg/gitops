@@ -20,7 +20,7 @@ spec:
           configMap:
             name: gin-test
       containers:
-        - image: drzhangg/gin_demo1:v10
+        - image: drzhangg/gin_demo1:v0.1
           name: gin-demo
           ports:
             - containerPort: 8181
