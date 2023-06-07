@@ -16,7 +16,7 @@ spec:
         app: gin-test
     spec:
       volumes:
-        - name: config.conf-volume
+        - name: config.confvolume
           configMap:
             name: gin-test
       containers:
@@ -27,7 +27,7 @@ spec:
               name: http
           imagePullPolicy: Always
           volumeMounts:
-            - name: config.conf-volume
+            - name: config.confvolume
               mountPath: /etc/config.conf
 ---
 apiVersion: v1
