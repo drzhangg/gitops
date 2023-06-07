@@ -52,6 +52,6 @@ metadata:
   name: gin-test
   namespace: gin
 data:
-  SPECIAL_LEVEL: very1
+  SPECIAL_LEVEL: very
   SPECIAL_TYPE: charm
 
