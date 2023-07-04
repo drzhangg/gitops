@@ -8,5 +8,8 @@ images:
 - name: app
   newName: nginx
   newTag: "1.15"
+- name: docker.io/drzhangg/demo
+  newName: docker.io/drzhangg/demo1
+  newTag: latest
 - name: nginx
   newName: "1.16"
